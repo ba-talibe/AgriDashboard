@@ -1,28 +1,38 @@
-const mongoose = require("mongoose");
+const conn = require("../db");
 
-const UserScheme = mongoose.Schema({
-    name : {
-        type : String,
-        required : true
+
+module.exports = {
+    async getUser(email){
+        try{
+            sql = "SELECT id,name,email,password FROM utilisateurs WHERE email = ?";
+            const [rows, field] =  await conn.execute(sql, [email]);
+            if (rows.length == 1)
+                return rows[0];
+            return false;
+        }catch{
+            console.log("Erreur lors de la selection");
+            return false;
+        }
     },
-    email : {
-        type : String,
-        required : true
+
+    async addUser(name,email,  password){
+        try{
+            var sql = `INSERT INTO utilisateurs (name, email, password) VALUES ('${name}', '${email}', '${password}');`;
+            await conn.execute(sql)
+        }catch{
+            console.log("erreur lors de l'unsertion ")
+        }
     },
-    password : {
-        type : String,
-        required : true
-    },
-    location : {
-        type : String,
-        default : "Pikine"
-    },
-    date : {
-        type : String,
-        default : Date.now
+    async getUserById(id){
+        try{
+            sql = "SELECT id,name,email,password FROM utilisateurs WHERE id = ?";
+            const [rows, field] =  await conn.execute(sql, [id]);
+            if (rows.length == 1)
+                return rows[0];
+            return false;
+        }catch{
+            console.log("Erreur lors de la selection");
+            return false;
+        }
     }
-});
-
-const User = mongoose.model("User", UserScheme);
-
-module.exports = User;
+};

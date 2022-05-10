@@ -16,7 +16,7 @@ const loginView = (req, res) => {
 
 const registerUser = (req, res) =>{
     //recupration des donnee poster
-    const {name, email, location, password, confirm } = req.body; 
+    const {name, email, password, confirm } = req.body; 
     // verification des donnee vides
     if( !name || !email || !password || !confirm){
         console.log("Fill the empty field");
@@ -31,7 +31,8 @@ const registerUser = (req, res) =>{
             msg : "champs vide detecter"
         });
     }else{
-        User.findOne({ email : email}).then((user) => {
+        User.getUser(email)
+            .then((user) => {
             if (user) {
                 console.log("Account already exists");
                 res.render("register", {
@@ -43,24 +44,14 @@ const registerUser = (req, res) =>{
                 })
             }else{
                 //Validation des champs
-                const newUser = new User({
-                    name,
-                    email,
-                    location,
-                    password
-                });
                 //hachage du mot de passe
                 bcrypt.genSalt(10, (err, salt) => {
                     if (err) 
                         throw err;
-                    bcrypt.hash(newUser.password, salt, (err, hashedPassword) => {
-                        newUser.password = hashedPassword;
-                        newUser.save()
-                        .then(res.redirect("/login"))
-                        .catch((err) => {
-                            console.log(err);
-                        })
-
+                    bcrypt.hash(password, salt, (err, hashedPassword) => {
+                        User.addUser(name, email, password)
+                            .then(res.redirect("/login"))
+                            .catch(console.log(err))
                     })
                 })
 

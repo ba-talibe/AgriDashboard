@@ -7,7 +7,7 @@ const LocaStrategy = require("passport-local").Strategy;
 function initialise(passpaort){
 
     const verifierUtlisateur = async (email, password, done) =>{
-        User.findOne({email : email})
+        User.getUser(email)
             .then((user) => {
                 if(!user){
                     console.log("User doesn't existe");
@@ -35,7 +35,7 @@ function initialise(passpaort){
       });
     
       passport.deserializeUser((id, done) => {
-        User.findById(id, (error, user) => {
+        User.getUserById(id, (error, user) => {
           done(error, user);
         });
       });
