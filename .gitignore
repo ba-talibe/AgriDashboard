@@ -1,0 +1,4 @@
+node_modules/
+.env
+*.avif
+.DS_Store
