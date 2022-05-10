@@ -1,0 +1,15 @@
+<%- include('layout.ejs'); %>
+<div class="container">
+    <div class="row justify-content-center">
+        <h3>Your are connected <%= name %> </h3> &nbsp;
+    </div>
+</div>
+<div>
+    <form action="/logout" method="POST">
+            <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Log out</button> 
+    </form>
+</div>
+
+</body>
+
+</html>
