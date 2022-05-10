@@ -8,15 +8,6 @@ const session = require("express-session");
 initialisePassport(passport);
 const app = express();
 dotenv.config();
-// mysql conncetion
-
-
-db.connect((err) => {
-    if (err)
-        throw err;
-    console.log("conected")
-})
-
 
 const port = 8080;
 
