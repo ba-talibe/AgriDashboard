@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js"
+    "start": "node app.js"
   },
   "author": "Gilbert Gomis, Oumar Talibe Ba",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "flash": "^1.1.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.3.2",
+    "mysql2": "^2.3.3",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0"
   }
